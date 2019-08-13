@@ -1,5 +1,9 @@
 name: 0.0$(Rev:.r)
 
+variables:
+  system:
+    debug: true
+
 stages:
 - stage: Build
   displayName: Build Stage
@@ -38,7 +42,7 @@ stages:
         rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
         includeRootFolder: false
         archiveType: 'tar'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildId).tar.gz'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildNumber).tar.gz'
         replaceExistingArchive: true
 
     # Publish the artifacts

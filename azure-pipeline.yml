@@ -49,7 +49,7 @@ stages:
         rootFolderOrFile: '$(Build.SourcesDirectory)/build/working'
         includeRootFolder: false
         archiveType: 'tar'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildNumber).tar.gz'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/atd-$(Build.BuildNumber).tar.gz'
         replaceExistingArchive: true
 
     - task: PublishPipelineArtifact@1

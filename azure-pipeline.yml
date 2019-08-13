@@ -44,13 +44,6 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildNumber).tar.gz'
         replaceExistingArchive: true
 
-    # Publish the artifacts
-    # - task: PublishBuildArtifacts@1
-    #  displayName: Publish Artifacts
-    #  inputs:
-    #    PathtoPublish: $(Build.ArtifactStagingDirectory)
-    #    ArtifactName: build
-
     - task: PublishPipelineArtifact@1
       displayName: Publish Artifacts
       inputs:

@@ -1,0 +1,79 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build Templates",
+      "program": "${workspaceFolder}\\lib\\arm.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "args": [
+        "-c",
+        "local/arm-deploy.json",
+        "build",
+        "--dual"
+      ],
+      "env": {
+          "verifyURLApiKey": "thisisareplacementfromVSCode"
+      },
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
+    },
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Deploy Templates",
+        "program": "${workspaceFolder}\\lib\\arm.ts",
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "args": [
+          "-c",
+          "local/arm-deploy.json",
+          "deploy",
+          "--subscription",
+          "1"
+        ],
+        "env": {
+            "verifyURLApiKey": "thisisareplacementfromVSCode"
+        },
+        "outFiles": [
+          "${workspaceFolder}/dist/**/*.js"
+        ]
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Publish Templates",
+        "program": "${workspaceFolder}\\lib\\arm.ts",
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "args": [
+          "-c",
+          "local/arm-deploy.json",
+          "publish",
+          "--subscription",
+          "1"
+        ],
+        "envFile": "${workspaceFolder}/local/.env",
+        "outFiles": [
+          "${workspaceFolder}/dist/**/*.js"
+        ]
+      },       
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Get UI URL",
+        "program": "${workspaceFolder}\\lib\\arm.ts",
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "args": [
+          "ui",
+          "local/src/createUiDefintion.json"
+        ],
+        "outFiles": [
+          "${workspaceFolder}/dist/**/*.js"
+        ]
+      }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "arm-template-deploy",
+  "version": "1.0.0",
+  "description": "Package to assist with the deployment of Azure ARM Templates",
+  "main": "dist/arm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "tslint lib/*.ts -t verbose"
+  },
+  "keywords": [
+    "azure",
+    "arm",
+    "deployment"
+  ],
+  "author": "Russell Seymour <russell.seymour@turtlesystems.co.uk>",
+  "license": "ISC",
+  "bin": {
+    "arm": "./dist/arm.js"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/fs-extra": "^5.0.4",
+    "@types/ini": "^1.3.30",
+    "@types/node": "^10.12.10",
+    "@types/rimraf": "^2.0.2",
+    "@types/sprintf-js": "^1.1.1",
+    "@types/winston": "^2.4.4",
+    "install": "^0.12.2",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "azure-arm-resource": "^7.2.1",
+    "azure-arm-storage": "^6.3.0",
+    "azure-storage": "^2.10.2",
+    "chalk": "^2.4.1",
+    "class-transformer": "^0.2.0",
+    "commander": "^2.19.0",
+    "debug": "^4.1.0",
+    "fs-extra": "^7.0.1",
+    "github-base": "^1.0.0",
+    "ini": "^1.3.5",
+    "reflect-metadata": "^0.1.12",
+    "rimraf": "^2.6.2",
+    "sprintf-js": "^1.1.1",
+    "winston": "^3.1.0",
+    "winston-log-and-exit": "^1.0.6",
+    "zip-folder": "^1.0.0"
+  }
+}

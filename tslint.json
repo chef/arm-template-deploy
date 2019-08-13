@@ -1,0 +1,15 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-eslint-rules"
+    ],
+    "jsRules": {},
+    "rules": {
+        "ter-indent": [true, 2],
+        "variable-name": [true, "ban-keywords", "check-format"],
+        "no-console": false,
+        "prefer-const": false
+    },
+    "rulesDirectory": []
+}

@@ -61,7 +61,6 @@ stages:
 - stage: Deploy
   displayName: GitHub Release
   dependsOn: Build
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/release')
   jobs:
   - deployment: Deploy
     displayName: Release to GitHub

@@ -1,7 +1,7 @@
 name: 0.0$(Rev:.r)
 
 variables:
-  SYSTEM_DEBUG: true
+  System.Debug: true
 
 stages:
 - stage: Build
@@ -48,7 +48,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Publish Artifacts
       inputs:
-        PathtoPublish: $(Build.ArtifactsStagingDirectory)
+        PathtoPublish: $(Build.ArtifactStagingDirectory)
         ArtifactName: build
 
 - stage: Deploy

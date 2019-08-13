@@ -72,7 +72,7 @@ stages:
           steps:
             - task: GitHubRelease@0
               inputs:
-                gitHubConnnection: ARM-Template-Deploy-Repo
+                gitHubConnection: ARM-Template-Deploy-Repo
                 repository: $(Build.Repository.Name)
                 action: create
                 target: $(Build.SourceVersion)

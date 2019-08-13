@@ -1,4 +1,4 @@
-name: 0.0$(Rev.r)
+name: 0.0$(Rev:.r)
 
 stages:
 - stage: Build

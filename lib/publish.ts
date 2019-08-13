@@ -245,8 +245,8 @@ export class Publish {
   private async publishPackage(token: string, data: {}) {
     // set the headers to be passed to the portal
     let headers = {
-      "Content-Type": "application/json",
       "Authorization": sprintf("Bearer %s", token),
+      "Content-Type": "application/json",
     };
 
     // create the url to use

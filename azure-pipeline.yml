@@ -1,0 +1,78 @@
+name: 1.1$(Rev.r)
+
+stages:
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: Build
+    displayName: Build Scripts
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+
+    # Install the necessary packages in order to compile the scripts
+    - task: Npm@1
+      displayName: Install NPM Module
+      inputs:
+        verbose: $(System.Debug)
+
+    # Compile the helper scripts, this is essentially the script that
+    # creates a tar archive of the module
+    - task: Npm@1
+      displayName: Compile Helper Scripts
+      inputs:
+        command: custom
+        customCommand: run compile:helpers
+        verbose: $(System.Debug)
+
+    # Perform a linting test on the typescript files
+    - task: Npm@1
+      displayName: Lint Typescript Files
+      inputs:
+        command: custom
+        customCommand: run lint
+        verbose: $(System.Debug)
+
+    # Compile (transpile) and package the module
+    - task: Npm@1
+      displayName: Compile & Package Typescript Files
+      inputs:
+        command: custom
+        customCommand: run build
+        verbose: $(System.Debug)
+
+    # Copy the archive file to the artifacts directory
+    - task: CopyFiles@2
+      displayName: Copy package archive to artifacts
+      inputs:
+        SourceFolder: $(Build.SourcesDirectory)/build
+        TargetFolder: $(Build.ArtifactsStagingDirectory)
+
+    # Publish the artifacts
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Artifacts
+      inputs:
+        PathtoPublish: $(Build.ArtifactsStagingDirectory)
+        ArtifactName: build
+
+- stage: Deploy
+  displayName: GitHub Release
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Release to GitHub
+    pool:
+      vmImage: ubuntu-latest
+    environment: GitHub
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: GitHubRelease@0
+              inputs:
+                gitHubConnnection: ARM-Template-Deploy-Repo
+                repository: $(Build.Repository.Name)
+                action: create
+                target: $(Build.SourceVersion)
+                tagSource: auto
+                tag: $(Build.BuildNumber)

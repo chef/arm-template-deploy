@@ -257,7 +257,9 @@ export class Build {
           // iterate around the base64Files and add each one
           // this is to preserve files that may have been added
           for (let filename in base64Files) {
-            resource[propertiesKey][filesKey][filename] = base64Files[filename];
+            if (filename != null) {
+              resource[propertiesKey][filesKey][filename] = base64Files[filename];
+            }
           }
           // resource[propertiesKey][filesKey] = base64Files;
           resource[propertiesKey][configKey] = functionConfiguration;
@@ -316,48 +318,50 @@ export class Build {
 
     // iterate around the folders and package each one up
     for (let dualType in foldersToPackage) {
-      if (foldersToPackage.hasOwnProperty(dualType)) {
-        // Determine the filename of the zip file
-        if (dualType === "single") {
-          zipFilename = sprintf("%s-%s%s-%s.zip",
-            this.utils.config.build.package.name,
-            this.utils.config.build.version,
-            nightlyFlag,
-            branchFlag);
+      if (dualType != null) {
+        if (foldersToPackage.hasOwnProperty(dualType)) {
+          // Determine the filename of the zip file
+          if (dualType === "single") {
+            zipFilename = sprintf("%s-%s%s-%s.zip",
+              this.utils.config.build.package.name,
+              this.utils.config.build.version,
+              nightlyFlag,
+              branchFlag);
 
-        } else {
-          zipFilename = sprintf("%s-%s%s-%s-%s.zip",
-            this.utils.config.build.package.name,
-            this.utils.config.build.version,
-            nightlyFlag,
-            branchFlag,
-            dualType);
-        }
-      }
-
-      // determine the full path to the target zipfile
-      let zipFilePath = pathJoin(this.utils.config.dirs.output, zipFilename);
-
-      zip(foldersToPackage[dualType], zipFilePath, (err) => {
-        if (err) {
-          this.utils.log("Packaging failed: %s", err, "error");
-        } else {
-          this.utils.log("Packaging successful: %s", zipFilePath);
-
-          // get a list of the files that need to be removed from the working directory
-          let filesToRemove = this.utils.config.build.getRemoveItems();
-
-          // iterate around the files to remove
-          for (let fileToRemove of filesToRemove) {
-            let path = pathJoin(foldersToPackage[dualType], fileToRemove.fileName);
-
-            if (existsSync(path)) {
-              this.utils.log("Removing file: %s", path, "warn");
-              unlinkSync(path);
-            }
+          } else {
+            zipFilename = sprintf("%s-%s%s-%s-%s.zip",
+              this.utils.config.build.package.name,
+              this.utils.config.build.version,
+              nightlyFlag,
+              branchFlag,
+              dualType);
           }
         }
-      });
+
+        // determine the full path to the target zipfile
+        let zipFilePath = pathJoin(this.utils.config.dirs.output, zipFilename);
+
+        zip(foldersToPackage[dualType], zipFilePath, (err) => {
+          if (err) {
+            this.utils.log("Packaging failed: %s", err, "error");
+          } else {
+            this.utils.log("Packaging successful: %s", zipFilePath);
+
+            // get a list of the files that need to be removed from the working directory
+            let filesToRemove = this.utils.config.build.getRemoveItems();
+
+            // iterate around the files to remove
+            for (let fileToRemove of filesToRemove) {
+              let path = pathJoin(foldersToPackage[dualType], fileToRemove.fileName);
+
+              if (existsSync(path)) {
+                this.utils.log("Removing file: %s", path, "warn");
+                unlinkSync(path);
+              }
+            }
+          }
+        });
+      }
     }
   }
 

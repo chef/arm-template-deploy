@@ -34,11 +34,19 @@ stages:
         command: custom
         customCommand: run build
         verbose: $(System.Debug)
+    
+    # Copy the package.json file into the working directory so it can be bundled up
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: 'package.json'
+        TargetFolder: '$(Build.SourcesDirectory)/build/working'
+        OverWrite: true        
 
     # Create an archive of the dist directory
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
+        rootFolderOrFile: '$(Build.SourcesDirectory)/build/working'
         includeRootFolder: false
         archiveType: 'tar'
         archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildNumber).tar.gz'
@@ -53,6 +61,7 @@ stages:
 - stage: Deploy
   displayName: GitHub Release
   dependsOn: Build
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/release')
   jobs:
   - deployment: Deploy
     displayName: Release to GitHub

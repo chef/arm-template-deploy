@@ -16,7 +16,7 @@
   "author": "Russell Seymour <russell.seymour@turtlesystems.co.uk>",
   "license": "ISC",
   "bin": {
-    "arm": "./dist/arm.js"
+    "arm": "./arm.js"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",

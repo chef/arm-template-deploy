@@ -79,4 +79,4 @@ stages:
                 target: $(Build.SourceVersion)
                 tagSource: manual
                 tag: $(Build.BuildNumber)
-                assets: $(Build.ArtifactStagingDirectory)/*.tar.gz
+                # assets: $(Build.ArtifactStagingDirectory)/atd-$(Build.BuildNumber).tar.gz

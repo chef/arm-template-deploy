@@ -45,11 +45,17 @@ stages:
         replaceExistingArchive: true
 
     # Publish the artifacts
-    - task: PublishBuildArtifacts@1
+    # - task: PublishBuildArtifacts@1
+    #  displayName: Publish Artifacts
+    #  inputs:
+    #    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    #    ArtifactName: build
+
+    - task: PublishPipelineArtifact@1
       displayName: Publish Artifacts
       inputs:
-        PathtoPublish: $(Build.ArtifactStagingDirectory)
-        ArtifactName: build
+        targetPath: $(Build.ArtifactStagingDirectory)
+        artifact: 'build'
 
 - stage: Deploy
   displayName: GitHub Release

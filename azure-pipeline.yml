@@ -16,15 +16,6 @@ stages:
       inputs:
         verbose: $(System.Debug)
 
-    # Compile the helper scripts, this is essentially the script that
-    # creates a tar archive of the module
-    - task: Npm@1
-      displayName: Compile Helper Scripts
-      inputs:
-        command: custom
-        customCommand: run compile:helpers
-        verbose: $(System.Debug)
-
     # Perform a linting test on the typescript files
     - task: Npm@1
       displayName: Lint Typescript Files
@@ -35,18 +26,20 @@ stages:
 
     # Compile (transpile) and package the module
     - task: Npm@1
-      displayName: Compile & Package Typescript Files
+      displayName: Compile Typescript Files
       inputs:
         command: custom
         customCommand: run build
         verbose: $(System.Debug)
 
-    # Copy the archive file to the artifacts directory
-    - task: CopyFiles@2
-      displayName: Copy package archive to artifacts
+    # Create an archive of the dist directory
+    - task: ArchiveFiles@2
       inputs:
-        SourceFolder: $(Build.SourcesDirectory)/build
-        TargetFolder: $(Build.ArtifactsStagingDirectory)
+        rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
+        includeRootFolder: false
+        archiveType: 'tar'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/arm-template-deploy-$(Build.BuildId).tar.gz'
+        replaceExistingArchive: true
 
     # Publish the artifacts
     - task: PublishBuildArtifacts@1

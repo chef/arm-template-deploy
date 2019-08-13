@@ -5,8 +5,7 @@
   "main": "dist/arm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile:helpers": "tsc --project scripts/tsconfig.json",
-    "build": "tsc && node bin/package.js",
+    "build": "tsc",
     "lint": "tslint lib/*.ts -t verbose"
   },
   "keywords": [

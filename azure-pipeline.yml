@@ -69,6 +69,6 @@ stages:
                 repository: $(Build.Repository.Name)
                 action: create
                 target: $(Build.SourceVersion)
-                tagSource: auto
+                tagSource: manual
                 tag: $(Build.BuildNumber)
                 assets: $(Build.ArtifactStagingDirectory)/*.tar.gz

@@ -58,25 +58,3 @@ stages:
         targetPath: $(Build.ArtifactStagingDirectory)
         artifact: 'build'
 
-- stage: Deploy
-  displayName: GitHub Release
-  dependsOn: Build
-  jobs:
-  - deployment: Deploy
-    displayName: Release to GitHub
-    pool:
-      vmImage: ubuntu-latest
-    environment: GitHub
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: GitHubRelease@0
-              inputs:
-                gitHubConnection: ARM-Template-Deploy-Repo
-                repository: $(Build.Repository.Name)
-                action: create
-                target: $(Build.SourceVersion)
-                tagSource: manual
-                tag: $(Build.BuildNumber)
-                # assets: $(Build.ArtifactStagingDirectory)/atd-$(Build.BuildNumber).tar.gz

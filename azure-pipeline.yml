@@ -1,8 +1,7 @@
 name: 0.0$(Rev:.r)
 
 variables:
-  system:
-    debug: true
+  SYSTEM_DEBUG: true
 
 stages:
 - stage: Build

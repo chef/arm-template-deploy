@@ -233,8 +233,8 @@ export class Publish {
 
     return new Promise((resolve) => {
       let headers = {
-        "If-Match": "*"
-      }
+        "If-Match": "*",
+      };
       this.utils.makeRequest("post", loginUrl, headers, postData).then((body) => {
         // if a bearer token has been returned set the property
         if (body[this.bodyKey][this.accessTokenKey]) {

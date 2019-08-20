@@ -150,6 +150,7 @@ export class Publish {
 
     // Convert the publish data into an object to be sent to the Cloud Partner portal
     let data = {
+      changedTime: Date.prototype.toISOString(),
       definition: {
         displayText: pubConfig.display,
         offer: {
@@ -200,7 +201,6 @@ export class Publish {
       id: pubConfig.offer.id,
       offerTypeId: pubConfig.offer.type,
       publisherId: pubConfig.publisher,
-      changedTime: Date.prototype.toISOString(),
     };
 
     this.utils.log(JSON.stringify(data), [], "debug");

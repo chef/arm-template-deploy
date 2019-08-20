@@ -13,6 +13,7 @@ export class PublishModel {
   public longSummary: string;
   public termsOfUse: string;
   public publisher: string;
+  public changedTime: string;
 
   @Type(() => OfferModel)
   public offer: OfferModel;

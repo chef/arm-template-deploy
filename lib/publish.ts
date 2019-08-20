@@ -105,7 +105,7 @@ export class Publish {
     for (let plan of pubConfig.plans) {
 
       let item = {
-        "microsoft-azure-applications-package": {
+        "microsoft-azure-applications.package": {
         },
         "microsoft-azure-applications.certificationsAzureGovernment": plan.governmentCertifications,
         "microsoft-azure-applications.cloudAvailability": plan.availability,
@@ -120,7 +120,7 @@ export class Publish {
       };
 
       // Upload the package file and get the url of it
-      item["microsoft-azure-applications-package"][plan.package.version] = {
+      item["microsoft-azure-applications.package"][plan.package.version] = {
         ApplicationLockingPolicies: {
           CanEnableCustomerActions: false,
         },
@@ -200,6 +200,7 @@ export class Publish {
       id: pubConfig.offer.id,
       offerTypeId: pubConfig.offer.type,
       publisherId: pubConfig.publisher,
+      changedTime: Date.prototype.toISOString(),
     };
 
     this.utils.log(JSON.stringify(data), [], "debug");

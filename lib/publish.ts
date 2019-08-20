@@ -149,8 +149,9 @@ export class Publish {
     }
 
     // Convert the publish data into an object to be sent to the Cloud Partner portal
+    let now = new Date();
     let data = {
-      changedTime: Date.prototype.toISOString(),
+      changedTime: now.toISOString(),
       definition: {
         displayText: pubConfig.display,
         offer: {
@@ -231,7 +232,10 @@ export class Publish {
     );
 
     return new Promise((resolve) => {
-      this.utils.makeRequest("post", loginUrl, {}, postData).then((body) => {
+      let headers = {
+        "If-Match": "*"
+      }
+      this.utils.makeRequest("post", loginUrl, headers, postData).then((body) => {
         // if a bearer token has been returned set the property
         if (body[this.bodyKey][this.accessTokenKey]) {
           token = body[this.bodyKey][this.accessTokenKey];

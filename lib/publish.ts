@@ -105,10 +105,10 @@ export class Publish {
     for (let plan of pubConfig.plans) {
 
       let item = {
-        "microsoft-azure-applications.package": {
-        },
         "microsoft-azure-applications.certificationsAzureGovernment": plan.governmentCertifications,
         "microsoft-azure-applications.cloudAvailability": plan.availability,
+        "microsoft-azure-applications.package": {
+        },
         "microsoft-azure-applications.skuDescription": plan.sku.description,
         "microsoft-azure-applications.skuSummary": plan.sku.summary,
         "microsoft-azure-applications.skuTitle": plan.sku.title,
